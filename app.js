@@ -14,7 +14,7 @@ const flash = require('connect-flash');
 
 
 var indexRouter = require('./routes/index');
-var userRouter = require('/routes/users');
+var usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth')
 
 var app = express();
@@ -60,7 +60,7 @@ passport.deserializeUser((id,done) => {
 
 
 ///If we don't get an error then we will be refreced to the db///
-    const db = client.db('user-profiles');
+    const db = client.db('account-app');
     const users = db.collection('users');////giving the db an table ///
     //// Once we have the collection, then it will be saved into the local users.
     app.locals.users = users;
@@ -82,6 +82,12 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
+//Configure the session, passport, flash
+app.use(session({
+    secret: 'session secret',
+    resave: false,
+    saveUninitialized: false,
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -96,9 +102,11 @@ app.use((req,res,next) =>{
 });
 
 app.use('/', indexRouter);
-app.use('/auth', authRouter);
+app.use('/users', usersRouter);
 
-app.use('/users', userRouter);
+///Add a new route/////
+
+app.use('/auth', authRouter);
 ///Catch a 404 to error handler////
 app.use(function(req,res,next) {
     next(createErrror(404));
@@ -106,5 +114,14 @@ app.use(function(req,res,next) {
 
 //error handler///
 app.use(function(err, req, res, next) {
+    res.locals.message = err.message;
+    res.locals.err = req.app.get('env') === 'development' ? err : {}
+
+
+/////Retrun the error page////
+res.status(err.status || 500);
+res.render('error')
 
 })
+
+module.exports = app;
