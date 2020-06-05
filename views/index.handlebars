@@ -1,0 +1,13 @@
+<h1>Profile Users</h1>
+
+
+<h2>Recent Profiles</h2>
+
+<ul>
+    {{#each recent}}
+    <li><a href-'/users/{{username}}'></a></li>
+    {{/each}}
+</ul>
+
+<p><a href="/auth/login">Login</a> to update your Profile
+<p><a href="/auth/register">Register</a>to make a new Profile</p>

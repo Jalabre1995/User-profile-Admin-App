@@ -1,0 +1,23 @@
+<h2>Edit your Profile</h2>
+<form action= '/users' method="POST">
+<div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" name="name" id="name" value="{{name}}">
+</div>
+<div class="form-group">
+    <label for="name">GitHub</label>
+    <input type="text" class="form-control" name="github" id="github" value="{{github}}">
+</div>
+<div class="form-group">
+    <label for="name">Twitter</label>
+    <input type="text" class="form-control" name="twitter" id="twitter" value="{{twitter}}">
+</div>
+<div class="form-group">
+    <label for="name">Facebook</label>
+    <input type="text" class="form-control" name="facebook" id="facebook" value="{{facebook}}">
+</div>
+
+
+</form>
+
+<p><a href="/users/{{username}}" target="_blank"> View your Profile</a></p>
